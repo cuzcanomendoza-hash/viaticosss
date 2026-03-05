@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viáticos Proyectados - Mockup</title>
+    <link rel="stylesheet" href="styles/common.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Plataforma de Automatización de Viáticos</h1>
+            <div class="user-info">
+                <span>Usuario: Mayra Rifo</span>
+                <span class="role-badge">Admin Total</span>
+                <button class="btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="registro-vuelos.html">Registro de Vuelos</a></li>
+                <li><a href="calculo-viaticos.html">Cálculo de Viáticos</a></li>
+                <li><a href="viaticos-proyectados.html" class="active">Viáticos Proyectados</a></li>
+                <li><a href="reportes.html">Generación de Reportes</a></li>
+                <li><a href="control-caja.html">Control de Caja</a></li>
+                <li><a href="ingreso-manual.html">Ingreso Manual</a></li>
+                <li><a href="administracion.html">Administración</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Viáticos Proyectados (Pairings)</h2>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Información:</strong> Este módulo muestra los viáticos <strong>proyectados</strong> a partir de los <strong>pairings</strong> de AIMS,
+                    no solo de los vuelos ya asignados en crew requirements. Se utiliza para estimar el gasto futuro por base, país y caja.
+                </div>
+
+                <div class="grid-2">
+                    <div class="card" style="margin: 0;">
+                        <h3 style="margin-bottom: 20px; font-size: 16px; color: #111827;">Filtros de Proyección</h3>
+
+                        <div class="form-group">
+                            <label class="required">Período de Pairings</label>
+                            <div class="grid-2">
+                                <input type="date" class="form-control" id="pairingDesde" required>
+                                <input type="date" class="form-control" id="pairingHasta" required>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Base del Tripulante</label>
+                                <select class="form-control" id="baseProyectada">
+                                    <option value="">Todas las bases</option>
+                                    <option value="SCL">SCL - Santiago</option>
+                                    <option value="LIM">LIM - Lima</option>
+                                    <option value="EZE">EZE - Buenos Aires</option>
+                                    <option value="MDE">MDE - Medellín</option>
+                                    <option value="BOG">BOG - Bogotá</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Rol</label>
+                                <select class="form-control" id="rolProyectado">
+                                    <option value="">Todos los roles</option>
+                                    <option value="CPT">CPT - Capitán</option>
+                                    <option value="FO">FO - Primer Oficial</option>
+                                    <option value="FE">FE - Ingeniero de Vuelo</option>
+                                    <option value="CC">CC - Tripulante de Cabina</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>País</label>
+                                <select class="form-control" id="paisProyectado">
+                                    <option value="">Todos los países</option>
+                                    <option value="CL">Chile</option>
+                                    <option value="PE">Perú</option>
+                                    <option value="AR">Argentina</option>
+                                    <option value="BR">Brasil</option>
+                                    <option value="CO">Colombia</option>
+                                    <option value="MX">México</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Caja Proyectada</label>
+                                <select class="form-control" id="cajaProyectada">
+                                    <option value="">Todas las cajas</option>
+                                    <option value="SCL">SCL - Caja Santiago</option>
+                                    <option value="LIM">LIM - Caja Lima</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tipo de Proyección</label>
+                            <select class="form-control" id="tipoProyeccion">
+                                <option value="pairing">Por Pairing Completo</option>
+                                <option value="dia">Por Día de Operación</option>
+                                <option value="tripulante">Por Tripulante</option>
+                            </select>
+                        </div>
+
+                        <div class="flex gap-10" style="margin-top: 20px;">
+                            <button class="btn-primary" style="flex: 1;">Calcular Viáticos Proyectados</button>
+                            <button class="btn-secondary">Limpiar Filtros</button>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin: 0;">
+                        <h3 style="margin-bottom: 20px; font-size: 16px; color: #111827;">Resumen de Proyección</h3>
+
+                        <div class="alert alert-info">
+                            <strong>Nota:</strong> Los viáticos proyectados <strong>no generan débitos reales en caja</strong>. 
+                            Se utilizan solo para estimación y control presupuestario.
+                        </div>
+
+                        <div style="background-color: #f9fafb; padding: 15px; border-radius: 6px; margin-top: 10px;">
+                            <div class="grid-2">
+                                <div>
+                                    <strong>Tripulantes Proyectados:</strong><br>
+                                    <span style="font-size: 20px; font-weight: 700;">48</span>
+                                </div>
+                                <div>
+                                    <strong>Pairings Considerados:</strong><br>
+                                    <span style="font-size: 20px; font-weight: 700;">120</span>
+                                </div>
+                            </div>
+                            <div class="grid-2" style="margin-top: 15px;">
+                                <div>
+                                    <strong>Monto Total Proyectado:</strong><br>
+                                    <span style="font-size: 20px; font-weight: 700;">$24,580 USD</span>
+                                </div>
+                                <div>
+                                    <strong>Caja SCL (Proyección):</strong><br>
+                                    <span style="font-size: 16px; font-weight: 600;">$12,300 USD</span>
+                                </div>
+                            </div>
+                            <div class="grid-2" style="margin-top: 15px;">
+                                <div>
+                                    <strong>Caja LIM (Proyección):</strong><br>
+                                    <span style="font-size: 16px; font-weight: 600;">$8,200 USD</span>
+                                </div>
+                                <div>
+                                    <strong>Otras Cajas:</strong><br>
+                                    <span style="font-size: 16px; font-weight: 600;">$4,080 USD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Detalle de Viáticos Proyectados por Tripulante</h2>
+                    <div class="flex gap-10">
+                        <button class="btn-secondary">Exportar a Excel</button>
+                        <button class="btn-secondary">Exportar a CSV</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID Tripulante</th>
+                            <th>Nombre</th>
+                            <th>Base</th>
+                            <th>Pairing</th>
+                            <th>Período</th>
+                            <th>País Principal</th>
+                            <th>Caja Proyectada</th>
+                            <th>Noches / Fracciones</th>
+                            <th>Valor Diario</th>
+                            <th>Monto Proyectado</th>
+                            <th>Estado Pairing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12345</td>
+                            <td>Juan Pérez</td>
+                            <td>SCL</td>
+                            <td>P-00123</td>
+                            <td>01/02/2025 - 05/02/2025</td>
+                            <td>Perú (LIM)</td>
+                            <td>LIM</td>
+                            <td>3.0</td>
+                            <td>$46.00</td>
+                            <td><strong>$138.00</strong></td>
+                            <td><span class="badge badge-success">Confirmado</span></td>
+                        </tr>
+                        <tr>
+                            <td>67890</td>
+                            <td>María González</td>
+                            <td>LIM</td>
+                            <td>P-00456</td>
+                            <td>03/02/2025 - 06/02/2025</td>
+                            <td>Chile (SCL)</td>
+                            <td>SCL</td>
+                            <td>2.5</td>
+                            <td>$46.00</td>
+                            <td><strong>$115.00</strong></td>
+                            <td><span class="badge badge-warning">Parcialmente Asignado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Comparación Proyectado vs Ejecutado (Resumen)</h2>
+                </div>
+                <div style="background-color: #f3f4f6; padding: 15px; border-radius: 6px;">
+                    <div class="grid-3">
+                        <div>
+                            <strong>Proyectado (Periodo):</strong><br>
+                            <span style="font-size: 18px; font-weight: 700;">$24,580 USD</span>
+                        </div>
+                        <div>
+                            <strong>Ejecutado (Periodo):</strong><br>
+                            <span style="font-size: 18px; font-weight: 700;">$21,340 USD</span>
+                        </div>
+                        <div>
+                            <strong>Diferencia:</strong><br>
+                            <span style="font-size: 18px; font-weight: 700; color: #1e3a8a;">$3,240 USD</span>
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 13px; color: #6b7280;">
+                        La comparación es referencial y se basa en los pairings planificados versus las actividades realmente ejecutadas en el mismo período.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Automatización de Viáticos - Mockups</title>
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Plataforma de Automatización de Viáticos</h1>
+            <div class="user-info">
+                <span>Usuario: Mayra Rifo</span>
+                <span class="role-badge">Admin Total</span>
+                <button class="btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="index.html" class="active">Dashboard</a></li>
+                <li><a href="registro-vuelos.html">Registro de Vuelos</a></li>
+                <li><a href="calculo-viaticos.html">Cálculo de Viáticos</a></li>
+                <li><a href="viaticos-proyectados.html">Viáticos Proyectados</a></li>
+                <li><a href="reportes.html">Generación de Reportes</a></li>
+                <li><a href="control-caja.html">Control de Caja</a></li>
+                <li><a href="ingreso-manual.html">Ingreso Manual</a></li>
+                <li><a href="administracion.html">Administración</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="dashboard">
+                <h2>Dashboard Principal</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Viáticos Pendientes</h3>
+                        <p class="stat-value">1,234</p>
+                        <span class="stat-label">Este mes</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Calculado</h3>
+                        <p class="stat-value">$89,450 USD</p>
+                        <span class="stat-label">Este mes</span>
+                    </div>
+                    <div class="stat-card alert">
+                        <h3>Caja SCL</h3>
+                        <p class="stat-value">$75,200 USD</p>
+                        <span class="stat-label">Saldo disponible</span>
+                        <div style="margin-top: 8px; font-size: 12px; color: #6b7280;">
+                            <div>Gasto Diario: <strong style="color: #ef4444;">-$1,200</strong></div>
+                            <div>Gasto Mes: <strong style="color: #ef4444;">-$4,800</strong></div>
+                        </div>
+                        <span class="alert-badge">Alerta: 94% usado</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Caja LIM</h3>
+                        <p class="stat-value">$38,500 USD</p>
+                        <span class="stat-label">Saldo disponible</span>
+                        <div style="margin-top: 8px; font-size: 12px; color: #6b7280;">
+                            <div>Gasto Diario: <strong style="color: #ef4444;">-$450</strong></div>
+                            <div>Gasto Mes: <strong style="color: #ef4444;">-$1,500</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>Flujo Automatizado</h3>
+                    <div style="background-color: #eff6ff; padding: 20px; border-radius: 8px; border-left: 4px solid #1e3a8a; margin-bottom: 20px;">
+                        <h4 style="color: #1e3a8a; margin-bottom: 15px; font-size: 16px;">Proceso Automatizado (TO BE)</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div style="background: white; padding: 15px; border-radius: 6px;">
+                                <div style="font-size: 24px; color: #1e3a8a; margin-bottom: 5px;">1️⃣</div>
+                                <strong style="font-size: 14px;">Importación AIMS</strong>
+                                <p style="font-size: 12px; color: #6b7280; margin: 5px 0 0 0;">Extracción automática desde Requirements</p>
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 6px;">
+                                <div style="font-size: 24px; color: #1e3a8a; margin-bottom: 5px;">2️⃣</div>
+                                <strong style="font-size: 14px;">Cálculo Automático</strong>
+                                <p style="font-size: 12px; color: #6b7280; margin: 5px 0 0 0;">Noches, tarifarios y reglas por país</p>
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 6px;">
+                                <div style="font-size: 24px; color: #1e3a8a; margin-bottom: 5px;">3️⃣</div>
+                                <strong style="font-size: 14px;">Débito Automático</strong>
+                                <p style="font-size: 12px; color: #6b7280; margin: 5px 0 0 0;">Asignación y débito en caja correspondiente</p>
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 6px;">
+                                <div style="font-size: 24px; color: #1e3a8a; margin-bottom: 5px;">4️⃣</div>
+                                <strong style="font-size: 14px;">Reportes Automáticos</strong>
+                                <p style="font-size: 12px; color: #6b7280; margin: 5px 0 0 0;">Generación y envío por país/caja</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background-color: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b; margin-bottom: 20px;">
+                        <strong style="color: #92400e;">Estado del Sistema:</strong>
+                        <p style="margin: 8px 0 0 0; color: #92400e; font-size: 14px;">
+                            <strong>Última importación AIMS:</strong> 15/01/2025 08:30<br>
+                            <strong>Cálculo automático:</strong> Configurado para ejecutarse <strong>diariamente</strong> a las 08:00<br>
+                            <strong>Próximo cálculo:</strong> 16/01/2025 08:00
+                        </p>
+                    </div>
+
+                    <h3 style="margin-top: 30px;">Acciones Rápidas</h3>
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="window.location.href='registro-vuelos.html'">Importar Reporte AIMS</button>
+                        <button class="btn-primary" onclick="window.location.href='calculo-viaticos.html'">Calcular Viáticos</button>
+                        <button class="btn-primary" onclick="window.location.href='reportes.html'">Generar Reporte Consolidado</button>
+                        <button class="btn-secondary">Ver Alertas</button>
+                        <button class="btn-secondary" onclick="window.location.href='control-caja.html'">Registrar Ajuste Manual</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="flex-between" style="margin-bottom: 15px;">
+                        <h3>Últimos Movimientos</h3>
+                        <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="window.location.href='calculo-viaticos.html'">Ver Todos</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tripulante</th>
+                                <th>Vuelo</th>
+                                <th>Destino</th>
+                                <th>Monto</th>
+                                <th>Caja</th>
+                                <th>Clasificación</th>
+                                <th>Origen</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15/01/2025</td>
+                                <td>Juan Pérez</td>
+                                <td>JA123</td>
+                                <td>LIM</td>
+                                <td>$23.00</td>
+                                <td><strong style="color: #1e3a8a;">LIM</strong></td>
+                                <td><span class="badge badge-info">Programado</span></td>
+                                <td><span class="badge badge-info">AIMS</span></td>
+                                <td><span class="badge badge-success">Calculado y Debitado</span></td>
+                            </tr>
+                            <tr>
+                                <td>15/01/2025</td>
+                                <td>María González</td>
+                                <td>JA456</td>
+                                <td>SCL</td>
+                                <td>$69.00</td>
+                                <td><strong style="color: #1e3a8a;">SCL</strong></td>
+                                <td><span class="badge badge-warning">Contingencia</span></td>
+                                <td><span class="badge badge-info">AIMS</span></td>
+                                <td><span class="badge badge-success">Calculado y Debitado</span></td>
+                            </tr>
+                            <tr>
+                                <td>14/01/2025</td>
+                                <td>Carlos Rodríguez</td>
+                                <td>JA789</td>
+                                <td>REC</td>
+                                <td>$46.00</td>
+                                <td>-</td>
+                                <td><span class="badge badge-warning">Contingencia</span></td>
+                                <td><span class="badge badge-info">AIMS</span></td>
+                                <td><span class="badge badge-warning">Pendiente (Ruta Especial)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>Asociación Automática de Caja</h3>
+                    <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px;">
+                        <p style="margin-bottom: 15px; color: #374151; font-size: 14px;">
+                            El sistema asigna automáticamente la caja según las siguientes reglas:
+                        </p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div style="background: white; padding: 15px; border-radius: 6px; border-left: 3px solid #10b981;">
+                                <strong style="color: #065f46; font-size: 14px;">Regla Principal</strong>
+                                <p style="font-size: 13px; color: #6b7280; margin: 8px 0 0 0;">
+                                    Se asigna la caja según la <strong>base del tripulante</strong> configurada en las reglas del sistema.
+                                </p>
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 6px; border-left: 3px solid #3b82f6;">
+                                <strong style="color: #1e40af; font-size: 14px;">Regla Secundaria</strong>
+                                <p style="font-size: 13px; color: #6b7280; margin: 8px 0 0 0;">
+                                    Si no hay regla específica, se usa la caja del <strong>destino del vuelo</strong>.
+                                </p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding: 12px; background-color: #dbeafe; border-radius: 6px;">
+                            <strong style="color: #1e40af; font-size: 13px;">Ejemplo:</strong>
+                            <p style="font-size: 13px; color: #1e40af; margin: 5px 0 0 0;">
+                                Tripulante con base SCL vuela a LIM → Caja asignada: <strong>LIM</strong> (por destino)<br>
+                                Tripulante con base LIM vuela a SCL → Caja asignada: <strong>SCL</strong> (por destino)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

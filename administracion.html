@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Mockup</title>
+    <link rel="stylesheet" href="styles/common.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Plataforma de Automatización de Viáticos</h1>
+            <div class="user-info">
+                <span>Usuario: Mayra Rifo</span>
+                <span class="role-badge">Admin Total</span>
+                <button class="btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="registro-vuelos.html">Registro de Vuelos</a></li>
+                <li><a href="calculo-viaticos.html">Cálculo de Viáticos</a></li>
+                <li><a href="viaticos-proyectados.html">Viáticos Proyectados</a></li>
+                <li><a href="reportes.html">Generación de Reportes</a></li>
+                <li><a href="control-caja.html">Control de Caja</a></li>
+                <li><a href="ingreso-manual.html">Ingreso Manual</a></li>
+                <li><a href="administracion.html" class="active">Administración</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button class="btn-primary" onclick="showSection('usuarios')">Gestión de Usuarios</button>
+                <button class="btn-primary" onclick="showSection('reglas')">Configuración de Reglas</button>
+                <button class="btn-primary" onclick="showSection('valores')">Valores por País</button>
+                <button class="btn-primary" onclick="showSection('cajas')">Gestión de Cajas</button>
+                <button class="btn-primary" onclick="showSection('asociacion')">Asociación Automática de Cajas</button>
+            </div>
+
+            <!-- Gestión de Usuarios -->
+            <div id="section-usuarios" class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Gestión de Usuarios</h2>
+                    <button class="btn-primary">Nuevo Usuario</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th>Último Acceso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>dlopez</td>
+                            <td>Daniel López</td>
+                            <td>dlopez@jetsmart.com</td>
+                            <td><span class="badge badge-info">Admin Total</span></td>
+                            <td><span class="badge badge-success">Activo</span></td>
+                            <td>15/01/2025 14:30</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                                <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;">Desactivar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>aguevara</td>
+                            <td>Andrés Guevara</td>
+                            <td>aguevara@jetsmart.com</td>
+                            <td><span class="badge badge-info">Admin Total</span></td>
+                            <td><span class="badge badge-success">Activo</span></td>
+                            <td>15/01/2025 10:15</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                                <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;">Desactivar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>mrifo</td>
+                            <td>Mayra Rifo</td>
+                            <td>mrifo@jetsmart.com</td>
+                            <td><span class="badge badge-info">Admin Total</span></td>
+                            <td><span class="badge badge-success">Activo</span></td>
+                            <td>15/01/2025 16:45</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                                <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;">Desactivar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Configuración de Reglas -->
+            <div id="section-reglas" class="card" style="display: none;">
+                <div class="card-header">
+                    <h2 class="card-title">Configuración de Reglas de Cálculo</h2>
+                    <button class="btn-primary">Nueva Regla</button>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Mantenedor Dinámico:</strong> Configure reglas generales y particulares por país sin necesidad de desplegar nuevas versiones del sistema.
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>País</th>
+                            <th>Tipo Regla</th>
+                            <th>Condición</th>
+                            <th>Porcentaje</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>General</td>
+                            <td>Regla General</td>
+                            <td>Llegada > 18:00 (hora local destino)</td>
+                            <td>50%</td>
+                            <td><span class="badge badge-success">Activa</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Chile</td>
+                            <td>Regla Especial</td>
+                            <td>Llegada > 18:00 o Retorno < 18:00</td>
+                            <td>50%</td>
+                            <td><span class="badge badge-success">Activa</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Argentina</td>
+                            <td>Regla Especial</td>
+                            <td>TSV finaliza > 18:00 o TSV inicia < 12:00</td>
+                            <td>50%</td>
+                            <td><span class="badge badge-success">Activa</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Valores por País -->
+            <div id="section-valores" class="card" style="display: none;">
+                <div class="card-header">
+                    <h2 class="card-title">Valores Diarios de Viáticos por País</h2>
+                    <button class="btn-primary">Actualizar Valores</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Puerto / Ciudad</th>
+                            <th>País</th>
+                            <th>Valor Diario (USD)</th>
+                            <th>Última Actualización</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SCL</td>
+                            <td>Santiago</td>
+                            <td>Chile</td>
+                            <td><strong>$46.00</strong></td>
+                            <td>01/01/2025</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>LIM</td>
+                            <td>Lima</td>
+                            <td>Perú</td>
+                            <td><strong>$46.00</strong></td>
+                            <td>01/01/2025</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GIG</td>
+                            <td>Río de Janeiro</td>
+                            <td>Brasil</td>
+                            <td><strong>$50.00</strong></td>
+                            <td>01/01/2025</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MEX</td>
+                            <td>Ciudad de México</td>
+                            <td>México</td>
+                            <td><strong>$66.00</strong></td>
+                            <td>01/01/2025</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Gestión de Cajas -->
+            <div id="section-cajas" class="card" style="display: none;">
+                <div class="card-header">
+                    <h2 class="card-title">Gestión de Cajas</h2>
+                    <button class="btn-primary" onclick="openModal('modalNuevaCajaAdmin')">Nueva Caja</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Estación</th>
+                            <th>País</th>
+                            <th>Límite (USD)</th>
+                            <th>Regla Asociada</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SCL</td>
+                            <td>Caja Santiago</td>
+                            <td>SCL</td>
+                            <td>Chile</td>
+                            <td>$80,000.00</td>
+                            <td>Regla Chile</td>
+                            <td><span class="badge badge-success">Activa</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>LIM</td>
+                            <td>Caja Lima</td>
+                            <td>LIM</td>
+                            <td>Perú</td>
+                            <td>$40,000.00</td>
+                            <td>Regla General</td>
+                            <td><span class="badge badge-success">Activa</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Asociación Automática de Cajas -->
+            <div id="section-asociacion" class="card" style="display: none;">
+                <div class="card-header">
+                    <h2 class="card-title">Configuración de Asociación Automática de Cajas</h2>
+                    <button class="btn-primary" onclick="openModal('modalNuevaAsociacion')">Nueva Regla de Asociación</button>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Importante:</strong> Configure cómo el sistema asigna automáticamente la caja al calcular viáticos. El sistema evalúa las reglas en orden de prioridad.
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Prioridad</th>
+                            <th>Tipo de Regla</th>
+                            <th>Criterio</th>
+                            <th>Caja Asignada</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>Por Base del Tripulante</td>
+                            <td>Base = SCL</td>
+                            <td><strong>SCL</strong></td>
+                            <td><span class="badge badge-success">Activa</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                                <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;">Desactivar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>Por Base del Tripulante</td>
+                            <td>Base = LIM</td>
+                            <td><strong>LIM</strong></td>
+                            <td><span class="badge badge-success">Activa</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                                <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;">Desactivar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>Por Destino del Vuelo</td>
+                            <td>Destino = SCL</td>
+                            <td><strong>SCL</strong></td>
+                            <td><span class="badge badge-success">Activa</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                                <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;">Desactivar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>Por Destino del Vuelo</td>
+                            <td>Destino = LIM</td>
+                            <td><strong>LIM</strong></td>
+                            <td><span class="badge badge-success">Activa</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                                <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;">Desactivar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <h3 style="margin-bottom: 15px; font-size: 16px; color: #111827;">Lógica de Asignación</h3>
+                    <ol style="margin: 0; padding-left: 20px; color: #374151; font-size: 14px; line-height: 1.8;">
+                        <li>El sistema evalúa primero las reglas por <strong>Base del Tripulante</strong> (Prioridad 1)</li>
+                        <li>Si no encuentra una regla para la base, evalúa las reglas por <strong>Destino del Vuelo</strong> (Prioridad 2)</li>
+                        <li>Si no encuentra ninguna regla, el sistema generará una alerta para asignación manual</li>
+                        <li>Una vez asignada la caja, el débito se realiza automáticamente al aprobar los cálculos</li>
+                    </ol>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Nueva Asociación -->
+    <div id="modalNuevaAsociacion" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nueva Regla de Asociación de Caja</h3>
+                <button class="modal-close" onclick="closeModal('modalNuevaAsociacion')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="required">Tipo de Regla</label>
+                    <select class="form-control" id="tipoReglaAsociacion" required>
+                        <option value="">Seleccione tipo</option>
+                        <option value="base">Por Base del Tripulante</option>
+                        <option value="destino">Por Destino del Vuelo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Criterio</label>
+                    <select class="form-control" id="criterioAsociacion" required>
+                        <option value="">Seleccione criterio</option>
+                        <option value="SCL">SCL - Santiago</option>
+                        <option value="LIM">LIM - Lima</option>
+                        <option value="EZE">EZE - Buenos Aires</option>
+                        <option value="MDE">MDE - Medellín</option>
+                        <option value="BOG">BOG - Bogotá</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Caja a Asignar</label>
+                    <select class="form-control" id="cajaAsociacion" required>
+                        <option value="">Seleccione caja</option>
+                        <option value="SCL">SCL - Caja Santiago</option>
+                        <option value="LIM">LIM - Caja Lima</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Prioridad</label>
+                    <select class="form-control" id="prioridadAsociacion" required>
+                        <option value="1">1 - Primera (Se evalúa primero)</option>
+                        <option value="2">2 - Segunda (Se evalúa si no hay regla de prioridad 1)</option>
+                        <option value="3">3 - Tercera (Se evalúa si no hay reglas anteriores)</option>
+                    </select>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Ejemplo:</strong> Si crea una regla "Por Base del Tripulante" con criterio "SCL" y caja "SCL", 
+                    todos los tripulantes con base en Santiago tendrán sus viáticos debitados automáticamente en la Caja SCL.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalNuevaAsociacion')">Cancelar</button>
+                <button class="btn-primary" onclick="guardarAsociacion()">Guardar Regla</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(section) {
+            document.querySelectorAll('[id^="section-"]').forEach(el => el.style.display = 'none');
+            document.getElementById('section-' + section).style.display = 'block';
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        function guardarAsociacion() {
+            alert('Simulación: Regla de asociación guardada exitosamente.');
+            closeModal('modalNuevaAsociacion');
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+            }
+        }
+    </script>
+
+    <!-- Modal Nueva Caja (desde Administración) -->
+    <div id="modalNuevaCajaAdmin" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Registrar Nueva Caja</h3>
+                <button class="modal-close" onclick="closeModal('modalNuevaCajaAdmin')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <strong>Naturaleza de la Caja:</strong> La caja es un saldo virtual de control para trazabilidad. 
+                    No representa dinero físico, sino un control de cuánto se ha depositado, debitado y cuánto saldo queda.
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Código de la Caja</label>
+                    <input type="text" class="form-control" id="codigoCajaAdmin" placeholder="Ej: SCL, LIM, EZE" maxlength="3" required>
+                    <small style="color: #6b7280; font-size: 12px;">Código único de 3 letras (usualmente código IATA de la estación)</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Nombre de la Caja</label>
+                    <input type="text" class="form-control" id="nombreCajaAdmin" placeholder="Ej: Caja Santiago, Caja Lima" required>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="required">Estación</label>
+                        <select class="form-control" id="estacionCajaAdmin" required>
+                            <option value="">Seleccione estación</option>
+                            <option value="SCL">SCL - Santiago</option>
+                            <option value="LIM">LIM - Lima</option>
+                            <option value="EZE">EZE - Buenos Aires</option>
+                            <option value="MDE">MDE - Medellín</option>
+                            <option value="BOG">BOG - Bogotá</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">País</label>
+                        <select class="form-control" id="paisCajaAdmin" required>
+                            <option value="">Seleccione país</option>
+                            <option value="CL">Chile</option>
+                            <option value="PE">Perú</option>
+                            <option value="AR">Argentina</option>
+                            <option value="CO">Colombia</option>
+                            <option value="BR">Brasil</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Límite Establecido (USD)</label>
+                    <input type="number" class="form-control" id="limiteCajaAdmin" step="0.01" min="0" placeholder="0.00" required>
+                    <small style="color: #6b7280; font-size: 12px;">Límite máximo para alertas preventivas (ej: $80,000 para SCL, $40,000 para LIM)</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Saldo Inicial (USD)</label>
+                    <input type="number" class="form-control" id="saldoInicialCajaAdmin" step="0.01" min="0" placeholder="0.00" required>
+                    <small style="color: #6b7280; font-size: 12px;">Saldo inicial con el que se crea la caja. Puede ser $0.00 si se cargará después.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Regla de Asociación</label>
+                    <select class="form-control" id="reglaAsociacionCajaAdmin" required>
+                        <option value="">Seleccione regla</option>
+                        <option value="base-scl">Por Base: SCL → Caja SCL</option>
+                        <option value="base-lim">Por Base: LIM → Caja LIM</option>
+                        <option value="destino-scl">Por Destino: SCL → Caja SCL</option>
+                        <option value="destino-lim">Por Destino: LIM → Caja LIM</option>
+                        <option value="personalizada">Personalizada (configurar después)</option>
+                    </select>
+                    <small style="color: #6b7280; font-size: 12px;">Define cómo se asigna automáticamente esta caja al calcular viáticos</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Email para Notificaciones</label>
+                    <input type="email" class="form-control" id="emailCajaAdmin" placeholder="caja-scl@jetsmart.com">
+                    <small style="color: #6b7280; font-size: 12px;">Email donde se enviarán alertas de saldo bajo, saldo negativo, etc.</small>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="cajaActivaAdmin" checked> Caja Activa
+                    </label>
+                    <small style="color: #6b7280; font-size: 12px; display: block; margin-top: 5px;">
+                        Solo las cajas activas aparecerán en los desplegables para pago y débito automático
+                    </small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalNuevaCajaAdmin')">Cancelar</button>
+                <button class="btn-primary" onclick="guardarNuevaCajaAdmin()">Crear Caja</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function guardarNuevaCajaAdmin() {
+            alert('Simulación: Nueva caja creada exitosamente.');
+            closeModal('modalNuevaCajaAdmin');
+        }
+    </script>
+</body>
+</html>

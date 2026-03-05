@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generación de Reportes - Mockup</title>
+    <link rel="stylesheet" href="styles/common.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Plataforma de Automatización de Viáticos</h1>
+            <div class="user-info">
+                <span>Usuario: Mayra Rifo</span>
+                <span class="role-badge">Admin Total</span>
+                <button class="btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="registro-vuelos.html">Registro de Vuelos</a></li>
+                <li><a href="calculo-viaticos.html">Cálculo de Viáticos</a></li>
+                <li><a href="viaticos-proyectados.html">Viáticos Proyectados</a></li>
+                <li><a href="reportes.html" class="active">Generación de Reportes</a></li>
+                <li><a href="control-caja.html">Control de Caja</a></li>
+                <li><a href="ingreso-manual.html">Ingreso Manual</a></li>
+                <li><a href="administracion.html">Administración</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Generación de Reportes</h2>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card" style="margin: 0;">
+                        <h3 style="margin-bottom: 20px; font-size: 16px; color: #111827;">Filtros de Reporte</h3>
+                        
+                        <div class="form-group">
+                            <label class="required">Tipo de Reporte</label>
+                            <select class="form-control" id="tipoReporte" required>
+                                <option value="">Seleccione tipo</option>
+                                <option value="consolidado">Reporte Consolidado por Caja</option>
+                                <option value="detallado">Reporte Detallado</option>
+                                <option value="por-pais">Reporte por País</option>
+                                <option value="por-estacion">Reporte por Estación</option>
+                                <option value="por-tripulante">Reporte por Tripulante</option>
+                                <option value="rutas-especiales">Rutas Especiales (EZE-REC)</option>
+                            </select>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="required">Fecha Desde</label>
+                                <input type="date" class="form-control" id="fechaDesde" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="required">Fecha Hasta</label>
+                                <input type="date" class="form-control" id="fechaHasta" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>País</label>
+                            <select class="form-control" id="pais">
+                                <option value="">Todos los países</option>
+                                <option value="CL">Chile</option>
+                                <option value="PE">Perú</option>
+                                <option value="AR">Argentina</option>
+                                <option value="BR">Brasil</option>
+                                <option value="CO">Colombia</option>
+                                <option value="MX">México</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Estación / Caja</label>
+                            <select class="form-control" id="caja">
+                                <option value="">Todas las cajas</option>
+                                <option value="SCL">SCL - Santiago</option>
+                                <option value="LIM">LIM - Lima</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Formato de Exportación</label>
+                            <select class="form-control" id="formato">
+                                <option value="excel">Excel (.xlsx)</option>
+                                <option value="pdf">PDF</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="incluirPendientes"> Incluir viáticos pendientes de cálculo
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="incluirAjustes"> Incluir ajustes y correcciones
+                            </label>
+                        </div>
+
+                        <div class="flex gap-10" style="margin-top: 20px;">
+                            <button class="btn-primary" style="flex: 1;">Generar Reporte</button>
+                            <button class="btn-secondary">Limpiar Filtros</button>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin: 0;">
+                        <h3 style="margin-bottom: 20px; font-size: 16px; color: #111827;">Vista Previa del Reporte</h3>
+                        
+                        <div class="alert alert-info">
+                            <strong>Instrucciones:</strong> Configure los filtros y haga clic en "Generar Reporte" para ver la vista previa.
+                        </div>
+
+                        <div style="background-color: #f9fafb; padding: 15px; border-radius: 6px; margin-top: 20px;">
+                            <p style="color: #6b7280; font-size: 14px; margin-bottom: 10px;">
+                                <strong>Resumen del Reporte:</strong>
+                            </p>
+                            <ul style="color: #6b7280; font-size: 14px; padding-left: 20px;">
+                                <li>Total de registros: 0</li>
+                                <li>Monto total: $0.00 USD</li>
+                                <li>Período: -</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejemplo de Reporte Generado -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Reporte Consolidado - Caja SCL</h2>
+                    <div class="flex gap-10">
+                        <button class="btn-primary">Exportar a Excel</button>
+                        <button class="btn-secondary">Exportar a PDF</button>
+                        <button class="btn-secondary">Enviar por Email</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <strong>Reporte generado exitosamente:</strong> 1,234 registros encontrados para el período 01/01/2025 - 15/01/2025
+                </div>
+
+                <div style="margin-bottom: 20px; padding: 15px; background-color: #f3f4f6; border-radius: 6px;">
+                    <div class="grid-4">
+                        <div>
+                            <strong>Total Registros:</strong><br>
+                            <span style="font-size: 20px; font-weight: 700;">1,234</span>
+                        </div>
+                        <div>
+                            <strong>Monto Total:</strong><br>
+                            <span style="font-size: 20px; font-weight: 700;">$56,782.00 USD</span>
+                        </div>
+                        <div>
+                            <strong>Viáticos 100%:</strong><br>
+                            <span style="font-size: 18px;">856 registros</span>
+                        </div>
+                        <div>
+                            <strong>Viáticos 50%:</strong><br>
+                            <span style="font-size: 18px;">378 registros</span>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>ID Tripulante</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Vuelo</th>
+                            <th>Base</th>
+                            <th>Destino</th>
+                            <th>Moneda</th>
+                            <th>Monto</th>
+                            <th>% Aplicado</th>
+                            <th>Presentación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>15/01/2025</td>
+                            <td>12345</td>
+                            <td>Juan Pérez</td>
+                            <td>CPT</td>
+                            <td>JA123</td>
+                            <td>SCL</td>
+                            <td>LIM</td>
+                            <td>USD</td>
+                            <td>$23.00</td>
+                            <td>50%</td>
+                            <td>LIM</td>
+                        </tr>
+                        <tr>
+                            <td>15/01/2025</td>
+                            <td>67890</td>
+                            <td>María González</td>
+                            <td>FO</td>
+                            <td>JA456</td>
+                            <td>LIM</td>
+                            <td>SCL</td>
+                            <td>USD</td>
+                            <td>$69.00</td>
+                            <td>100%</td>
+                            <td>SCL</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="flex-between mt-20">
+                    <div>
+                        <strong>Total del Reporte:</strong> $56,782.00 USD
+                    </div>
+                    <div>
+                        <button class="btn-secondary">Ver Historial de Reportes</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reporte Especial: Rutas EZE-REC -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Reporte Semanal - Rutas Especiales (EZE-REC)</h2>
+                    <div class="flex gap-10">
+                        <select class="form-control" style="width: auto;">
+                            <option value="2025-01">Semana 1 - Enero 2025</option>
+                            <option value="2025-02">Semana 2 - Enero 2025</option>
+                        </select>
+                        <button class="btn-primary">Generar Reporte Semanal</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Información:</strong> Este reporte consolida los viáticos de tripulantes que operaron vuelos hacia y desde RECIFE, agrupados por semana para pagos por transferencia bancaria.
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID Tripulante</th>
+                            <th>Nombre</th>
+                            <th>Base</th>
+                            <th>Vuelos Operados</th>
+                            <th>Total Viáticos</th>
+                            <th>Moneda</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>11111</td>
+                            <td>Carlos Rodríguez</td>
+                            <td>EZE</td>
+                            <td>JA789, JA790</td>
+                            <td>$92.00</td>
+                            <td>USD</td>
+                            <td><span class="badge badge-warning">Pendiente Pago</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

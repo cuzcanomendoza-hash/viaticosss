@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Vuelos - Mockup</title>
+    <link rel="stylesheet" href="styles/common.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Plataforma de Automatización de Viáticos</h1>
+            <div class="user-info">
+                <span>Usuario: Mayra Rifo</span>
+                <span class="role-badge">Admin Total</span>
+                <button class="btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="registro-vuelos.html" class="active">Registro de Vuelos</a></li>
+                <li><a href="calculo-viaticos.html">Cálculo de Viáticos</a></li>
+                <li><a href="viaticos-proyectados.html">Viáticos Proyectados</a></li>
+                <li><a href="reportes.html">Generación de Reportes</a></li>
+                <li><a href="control-caja.html">Control de Caja</a></li>
+                <li><a href="ingreso-manual.html">Ingreso Manual</a></li>
+                <li><a href="administracion.html">Administración</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Registro de Vuelos para Cálculo de Viático</h2>
+                    <div class="flex gap-10">
+                        <button class="btn-primary" onclick="openModal('modalImportAIMS')">Importar Reporte AIMS</button>
+                        <button class="btn-secondary">Configurar Importación Automática</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Flujo Automatizado:</strong> El sistema se integra con AIMS para importar automáticamente los vuelos programados. Los datos se extraen desde Requirements con información de tripulantes, vuelos, fechas y horarios. También puede registrar vuelos manualmente para casos especiales.
+                </div>
+
+                <div class="alert alert-success" style="margin-top: 15px;">
+                    <strong>Última Importación:</strong> 15/01/2025 08:30 - 234 vuelos importados correctamente - 12 vuelos con advertencias
+                </div>
+
+                <form id="formRegistroVuelo">
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">ID Tripulante</label>
+                            <input type="text" class="form-control" id="idTripulante" placeholder="Ej: 12345" required>
+                            <small style="color: #6b7280; font-size: 12px;">El sistema buscará automáticamente el nombre desde la base de datos</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Nombre Tripulante</label>
+                            <input type="text" class="form-control" id="nombreTripulante" placeholder="Se completa automáticamente" disabled>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Rol Cumplido</label>
+                            <select class="form-control" id="rol" required>
+                                <option value="">Seleccione un rol</option>
+                                <option value="CPT">CPT - Capitán</option>
+                                <option value="FO">FO - Primer Oficial</option>
+                                <option value="FE">FE - Ingeniero de Vuelo</option>
+                                <option value="CC">CC - Tripulante de Cabina</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Base del Tripulante</label>
+                            <select class="form-control" id="base" required>
+                                <option value="">Seleccione una base</option>
+                                <option value="SCL">SCL - Santiago</option>
+                                <option value="LIM">LIM - Lima</option>
+                                <option value="EZE">EZE - Buenos Aires</option>
+                                <option value="MDE">MDE - Medellín</option>
+                                <option value="BOG">BOG - Bogotá</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Vuelo / Tramo</label>
+                            <input type="text" class="form-control" id="vuelo" placeholder="Ej: JA123" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Fecha de Operación</label>
+                            <input type="date" class="form-control" id="fechaOperacion" required>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Destino Final</label>
+                            <select class="form-control" id="destino" required>
+                                <option value="">Seleccione destino</option>
+                                <option value="SCL">SCL - Santiago</option>
+                                <option value="LIM">LIM - Lima</option>
+                                <option value="EZE">EZE - Buenos Aires</option>
+                                <option value="GIG">GIG - Río de Janeiro</option>
+                                <option value="GRU">GRU - São Paulo</option>
+                                <option value="MEX">MEX - Ciudad de México</option>
+                                <option value="PTY">PTY - Panamá</option>
+                                <option value="REC">REC - Recife</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Puerto de Pago</label>
+                            <select class="form-control" id="puertoPago">
+                                <option value="">Seleccione puerto</option>
+                                <option value="SCL">SCL - Santiago</option>
+                                <option value="LIM">LIM - Lima</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 30px 0 20px 0; color: #111827; font-size: 16px;">Horarios</h3>
+
+                    <div class="grid-3">
+                        <div class="form-group">
+                            <label class="required">Hora de Presentación</label>
+                            <input type="time" class="form-control" id="horaPresentacion" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Hora de Salida</label>
+                            <input type="time" class="form-control" id="horaSalida" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Hora de Llegada</label>
+                            <input type="time" class="form-control" id="horaLlegada" required>
+                            <small style="color: #6b7280; font-size: 12px;">Hora local del destino</small>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Hora de Retorno (Vuelo de Remontaje)</label>
+                            <input type="time" class="form-control" id="horaRetorno">
+                            <small style="color: #6b7280; font-size: 12px;">Para calcular noches de estadía</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>TSV Inicio (Tiempo de Servicio de Vuelo)</label>
+                            <input type="time" class="form-control" id="tsvInicio">
+                            <small style="color: #6b7280; font-size: 12px;">Requerido para políticas especiales (Argentina)</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Observaciones</label>
+                        <textarea class="form-control" id="observaciones" placeholder="Notas adicionales sobre el vuelo"></textarea>
+                    </div>
+
+                    <div class="flex gap-10" style="margin-top: 30px;">
+                        <button type="submit" class="btn-primary">Registrar Vuelo</button>
+                        <button type="button" class="btn-secondary">Limpiar Formulario</button>
+                        <button type="button" class="btn-secondary">Validar Datos</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Vuelos Registrados Recientemente</h2>
+                    <div class="flex gap-10">
+                        <input type="date" class="form-control" style="width: auto;">
+                        <button class="btn-secondary">Filtrar</button>
+                        <button class="btn-secondary">Exportar</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>ID Tripulante</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Vuelo</th>
+                            <th>Base</th>
+                            <th>Destino</th>
+                            <th>Hora Llegada</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>15/01/2025</td>
+                            <td>12345</td>
+                            <td>Juan Pérez</td>
+                            <td>CPT</td>
+                            <td>JA123</td>
+                            <td>SCL</td>
+                            <td>LIM</td>
+                            <td>19:30</td>
+                            <td><span class="badge badge-success">Registrado</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                                <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>15/01/2025</td>
+                            <td>67890</td>
+                            <td>María González</td>
+                            <td>FO</td>
+                            <td>JA456</td>
+                            <td>LIM</td>
+                            <td>SCL</td>
+                            <td>14:00</td>
+                            <td><span class="badge badge-warning">Pendiente Cálculo</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                                <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Importación AIMS -->
+    <div id="modalImportAIMS" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Importar Reporte desde AIMS</h3>
+                <button class="modal-close" onclick="closeModal('modalImportAIMS')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <strong>Proceso Automatizado:</strong> El sistema se conectará con AIMS para extraer el reporte diario con los vuelos programados, tripulantes, fechas y horarios.
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Fecha del Reporte</label>
+                    <input type="date" class="form-control" id="fechaReporteAIMS" required>
+                    <small style="color: #6b7280; font-size: 12px;">Seleccione la fecha del reporte a importar desde AIMS</small>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="validarDuplicadosAIMS" checked> Validar duplicados antes de importar
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="calcularAutomatico" checked> Calcular viáticos automáticamente después de importar
+                    </label>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>Nota:</strong> El sistema validará que no existan registros duplicados basándose en: ID Tripulante + Fecha + Vuelo + Rol + Puerto de Pago
+                </div>
+
+                <div style="background-color: #f3f4f6; padding: 15px; border-radius: 6px; margin-top: 20px;">
+                    <h4 style="margin-bottom: 10px; font-size: 14px;">Datos que se importarán desde AIMS:</h4>
+                    <ul style="margin: 0; padding-left: 20px; color: #6b7280; font-size: 14px;">
+                        <li>ID Tripulante</li>
+                        <li>Nombre del Tripulante</li>
+                        <li>Rol Cumplido</li>
+                        <li>Vuelo / Tramo</li>
+                        <li>Fecha de Operación</li>
+                        <li>Horarios (Presentación, Salida, Llegada)</li>
+                        <li>Base del Tripulante</li>
+                        <li>Destino Final</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalImportAIMS')">Cancelar</button>
+                <button class="btn-primary" onclick="importarAIMS()">Importar desde AIMS</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        function importarAIMS() {
+            alert('Simulación: Importando reporte desde AIMS...\n\nEl sistema se conectará con AIMS, extraerá los datos y los registrará automáticamente.');
+            closeModal('modalImportAIMS');
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+            }
+        }
+    </script>
+</body>
+</html>

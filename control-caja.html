@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Caja - Mockup</title>
+    <link rel="stylesheet" href="styles/common.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Plataforma de Automatización de Viáticos</h1>
+            <div class="user-info">
+                <span>Usuario: Mayra Rifo</span>
+                <span class="role-badge">Admin Total</span>
+                <button class="btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="registro-vuelos.html">Registro de Vuelos</a></li>
+                <li><a href="calculo-viaticos.html">Cálculo de Viáticos</a></li>
+                <li><a href="viaticos-proyectados.html">Viáticos Proyectados</a></li>
+                <li><a href="reportes.html">Generación de Reportes</a></li>
+                <li><a href="control-caja.html" class="active">Control de Caja</a></li>
+                <li><a href="ingreso-manual.html">Ingreso Manual</a></li>
+                <li><a href="administracion.html">Administración</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Control de Caja</h2>
+                    <button class="btn-primary" onclick="openModal('modalNuevaCaja')">Nueva Caja</button>
+                </div>
+
+                <div class="alert alert-info" style="margin-bottom: 20px;">
+                    <strong>⚠️ Importante - Naturaleza de la Caja:</strong>
+                    <p style="margin: 8px 0 0 0; font-size: 14px;">
+                        La caja es un <strong>saldo virtual de control</strong>, no representa dinero físico. 
+                        Su propósito es tener trazabilidad de cuánto dinero se ha depositado, cuánto se ha debitado 
+                        y cuánto saldo queda disponible en cada caja (ej: Caja Lima). 
+                        Este control permite saber en todo momento el estado de los fondos virtuales asignados a cada caja.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Caja SCL -->
+                    <div class="card" style="margin: 0; border-left: 4px solid #1e3a8a;">
+                        <div class="flex-between mb-20">
+                            <h3 style="font-size: 18px; color: #111827;">Caja SCL - Santiago</h3>
+                            <span class="badge badge-success">Activa</span>
+                        </div>
+
+                        <div style="background-color: #f3f4f6; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                            <div style="margin-bottom: 10px;">
+                                <span style="color: #6b7280; font-size: 14px;">Saldo Inicial:</span>
+                                <strong style="float: right; font-size: 14px;">$80,000.00 USD</strong>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <span style="color: #6b7280; font-size: 14px;">Total Abonos:</span>
+                                <strong style="float: right; font-size: 14px; color: #10b981;">+$0.00 USD</strong>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <span style="color: #6b7280; font-size: 14px;">Total Débitos:</span>
+                                <strong style="float: right; font-size: 14px; color: #ef4444;">-$4,800.00 USD</strong>
+                            </div>
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #1e3a8a;">
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #111827; font-size: 14px; font-weight: 600;">Saldo Resultante:</span>
+                                    <strong style="float: right; font-size: 20px; color: #1e3a8a;">$75,200.00 USD</strong>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #6b7280; font-size: 14px;">Límite Establecido:</span>
+                                    <strong style="float: right; font-size: 16px;">$80,000.00 USD</strong>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #6b7280; font-size: 14px;">Disponible:</span>
+                                    <strong style="float: right; font-size: 16px;">$4,800.00 USD</strong>
+                                </div>
+                            </div>
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #d1d5db;">
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #6b7280; font-size: 14px;">Gasto Diario (Hoy):</span>
+                                    <strong style="float: right; font-size: 14px; color: #ef4444;">-$1,200.00 USD</strong>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #6b7280; font-size: 14px;">Gasto Acumulado (Mes):</span>
+                                    <strong style="float: right; font-size: 14px; color: #ef4444;">-$4,800.00 USD</strong>
+                                </div>
+                                <div style="background-color: #fef3c7; padding: 8px; border-radius: 4px; margin-top: 10px;">
+                                    <span style="color: #92400e; font-size: 12px; font-weight: 600;">⚠️ Alerta: 94% del límite utilizado</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-10">
+                            <button class="btn-primary" style="flex: 1;">Registrar Abono</button>
+                            <button class="btn-secondary" style="flex: 1;">Ver Movimientos</button>
+                        </div>
+                    </div>
+
+                    <!-- Caja LIM -->
+                    <div class="card" style="margin: 0; border-left: 4px solid #10b981;">
+                        <div class="flex-between mb-20">
+                            <h3 style="font-size: 18px; color: #111827;">Caja LIM - Lima</h3>
+                            <span class="badge badge-success">Activa</span>
+                        </div>
+
+                        <div style="background-color: #f3f4f6; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                            <div style="margin-bottom: 10px;">
+                                <span style="color: #6b7280; font-size: 14px;">Saldo Inicial:</span>
+                                <strong style="float: right; font-size: 14px;">$40,000.00 USD</strong>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <span style="color: #6b7280; font-size: 14px;">Total Abonos:</span>
+                                <strong style="float: right; font-size: 14px; color: #10b981;">+$0.00 USD</strong>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <span style="color: #6b7280; font-size: 14px;">Total Débitos:</span>
+                                <strong style="float: right; font-size: 14px; color: #ef4444;">-$1,500.00 USD</strong>
+                            </div>
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #10b981;">
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #111827; font-size: 14px; font-weight: 600;">Saldo Resultante:</span>
+                                    <strong style="float: right; font-size: 20px; color: #10b981;">$38,500.00 USD</strong>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #6b7280; font-size: 14px;">Límite Establecido:</span>
+                                    <strong style="float: right; font-size: 16px;">$40,000.00 USD</strong>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #6b7280; font-size: 14px;">Disponible:</span>
+                                    <strong style="float: right; font-size: 16px;">$1,500.00 USD</strong>
+                                </div>
+                            </div>
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #d1d5db;">
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #6b7280; font-size: 14px;">Gasto Diario (Hoy):</span>
+                                    <strong style="float: right; font-size: 14px; color: #ef4444;">-$450.00 USD</strong>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <span style="color: #6b7280; font-size: 14px;">Gasto Acumulado (Mes):</span>
+                                    <strong style="float: right; font-size: 14px; color: #ef4444;">-$1,500.00 USD</strong>
+                                </div>
+                                <div style="background-color: #fee2e2; padding: 8px; border-radius: 4px; margin-top: 10px;">
+                                    <span style="color: #991b1b; font-size: 12px; font-weight: 600;">⚠️ Alerta: 96.25% del límite utilizado</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-10">
+                            <button class="btn-primary" style="flex: 1;">Registrar Abono</button>
+                            <button class="btn-secondary" style="flex: 1;">Ver Movimientos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explicación del Proceso de Débito Automático -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Proceso de Débito Automático</h2>
+                </div>
+                <div style="background-color: #eff6ff; padding: 20px; border-radius: 8px; border-left: 4px solid #1e3a8a;">
+                    <h3 style="color: #1e3a8a; margin-bottom: 15px; font-size: 16px;">¿Cómo funciona el débito automático?</h3>
+                    <ol style="margin: 0; padding-left: 20px; color: #1e40af; font-size: 14px; line-height: 1.8;">
+                        <li><strong>Al calcular viáticos:</strong> El sistema asigna automáticamente la caja según las reglas configuradas (base del tripulante o destino del vuelo).</li>
+                        <li><strong>Al aprobar los cálculos:</strong> Se genera el débito automático en la caja correspondiente.</li>
+                        <li><strong>Actualización de saldo:</strong> El saldo resultante se calcula como: <strong>Saldo Inicial + Abonos - Débitos</strong></li>
+                        <li><strong>Notificaciones:</strong> Si el saldo queda negativo o se acerca al límite, se genera una alerta automática.</li>
+                        <li><strong>Regularización:</strong> Si hay saldo negativo, se puede regularizar posteriormente mediante un abono.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Movimientos de Caja -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Movimientos de Caja</h2>
+                    <div class="flex gap-10">
+                        <select class="form-control" style="width: auto;">
+                            <option value="">Todas las cajas</option>
+                            <option value="SCL">SCL</option>
+                            <option value="LIM">LIM</option>
+                        </select>
+                        <input type="date" class="form-control" style="width: auto;">
+                        <button class="btn-secondary">Filtrar</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Caja</th>
+                            <th>Tipo Movimiento</th>
+                            <th>Clasificación</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                            <th>Saldo Anterior</th>
+                            <th>Saldo Resultante</th>
+                            <th>Origen</th>
+                            <th>Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>15/01/2025 10:30</td>
+                            <td>SCL</td>
+                            <td><span class="badge badge-danger">Débito Automático</span></td>
+                            <td><span class="badge badge-info">Programado</span></td>
+                            <td>Viático - Juan Pérez (JA123) - <span style="color: #6b7280; font-size: 12px;">Asignado automáticamente por destino</span></td>
+                            <td style="color: #ef4444;">-$23.00</td>
+                            <td>$75,223.00</td>
+                            <td>$75,200.00</td>
+                            <td><span class="badge badge-info">AIMS</span></td>
+                            <td>Sistema</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;" onclick="openModal('modalNotificacionDebito')">Ver Notificación</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>15/01/2025 11:15</td>
+                            <td>LIM</td>
+                            <td><span class="badge badge-danger">Débito Automático</span></td>
+                            <td><span class="badge badge-warning">Contingencia</span></td>
+                            <td>Viático - María González (JA456) - <span style="color: #6b7280; font-size: 12px;">Asignado automáticamente por destino</span></td>
+                            <td style="color: #ef4444;">-$69.00</td>
+                            <td>$38,569.00</td>
+                            <td>$38,500.00</td>
+                            <td><span class="badge badge-info">AIMS</span></td>
+                            <td>Sistema</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;" onclick="openModal('modalNotificacionDebito')">Ver Notificación</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>14/01/2025 09:00</td>
+                            <td>SCL</td>
+                            <td><span class="badge badge-success">Abono</span></td>
+                            <td>-</td>
+                            <td>Depósito inicial - Transferencia bancaria</td>
+                            <td style="color: #10b981;">+$80,000.00</td>
+                            <td>$0.00</td>
+                            <td>$80,000.00</td>
+                            <td><span class="badge badge-warning">MANUAL</span></td>
+                            <td>Daniel López</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Ver Detalle</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>13/01/2025 14:20</td>
+                            <td>SCL</td>
+                            <td><span class="badge badge-warning">Ajuste Manual</span></td>
+                            <td>-</td>
+                            <td>Corrección por error de cálculo</td>
+                            <td style="color: #f59e0b;">+$50.00</td>
+                            <td>$79,950.00</td>
+                            <td>$80,000.00</td>
+                            <td><span class="badge badge-warning">MANUAL</span></td>
+                            <td>Mayra Rifo</td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Ver Detalle</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Formulario de Abono -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Registrar Abono de Saldo</h2>
+                </div>
+
+                <form id="formAbono">
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Caja</label>
+                            <select class="form-control" id="cajaAbono" required>
+                                <option value="">Seleccione una caja</option>
+                                <option value="SCL">SCL - Santiago</option>
+                                <option value="LIM">LIM - Lima</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Monto</label>
+                            <input type="number" class="form-control" id="montoAbono" step="0.01" min="0" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Motivo / Descripción</label>
+                        <textarea class="form-control" id="motivoAbono" rows="3" placeholder="Ej: Depósito inicial, Transferencia bancaria, etc." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Documento de Respaldo</label>
+                        <input type="file" class="form-control" id="documentoAbono" accept=".pdf,.jpg,.png">
+                        <small style="color: #6b7280; font-size: 12px;">Formatos permitidos: PDF, JPG, PNG</small>
+                    </div>
+
+                    <div class="flex gap-10" style="margin-top: 20px;">
+                        <button type="submit" class="btn-primary">Registrar Abono</button>
+                        <button type="button" class="btn-secondary">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Formulario de Ajuste Manual -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Registrar Ajuste Manual</h2>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>Importante:</strong> Los ajustes manuales requieren justificación documentada y solo pueden ser realizados por usuarios con permisos de Administrador Total.
+                </div>
+
+                <form id="formAjuste">
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Caja</label>
+                            <select class="form-control" id="cajaAjuste" required>
+                                <option value="">Seleccione una caja</option>
+                                <option value="SCL">SCL - Santiago</option>
+                                <option value="LIM">LIM - Lima</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Tipo de Ajuste</label>
+                            <select class="form-control" id="tipoAjuste" required>
+                                <option value="">Seleccione tipo</option>
+                                <option value="correccion">Corrección de Error</option>
+                                <option value="reembolso">Reembolso Aprobado</option>
+                                <option value="gasto-extra">Gasto Extraordinario</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Monto</label>
+                            <input type="number" class="form-control" id="montoAjuste" step="0.01" placeholder="0.00" required>
+                            <small style="color: #6b7280; font-size: 12px;">Valor positivo para abono, negativo para débito</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Fecha del Ajuste</label>
+                            <input type="date" class="form-control" id="fechaAjuste" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Motivo Detallado</label>
+                        <textarea class="form-control" id="motivoAjuste" rows="4" placeholder="Describa detalladamente el motivo del ajuste..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Documento de Respaldo</label>
+                        <input type="file" class="form-control" id="documentoAjuste" accept=".pdf,.jpg,.png" required>
+                        <small style="color: #6b7280; font-size: 12px;">Formatos permitidos: PDF, JPG, PNG (Obligatorio)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="confirmarAjuste" required> 
+                            Confirmo que este ajuste está debidamente justificado y autorizado
+                        </label>
+                    </div>
+
+                    <div class="flex gap-10" style="margin-top: 20px;">
+                        <button type="submit" class="btn-primary">Registrar Ajuste</button>
+                        <button type="button" class="btn-secondary">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Nueva Caja -->
+    <div id="modalNuevaCaja" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Registrar Nueva Caja</h3>
+                <button class="modal-close" onclick="closeModal('modalNuevaCaja')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <strong>Naturaleza de la Caja:</strong> La caja es un saldo virtual de control para trazabilidad. 
+                    No representa dinero físico, sino un control de cuánto se ha depositado, debitado y cuánto saldo queda.
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Código de la Caja</label>
+                    <input type="text" class="form-control" id="codigoCaja" placeholder="Ej: SCL, LIM, EZE" maxlength="3" required>
+                    <small style="color: #6b7280; font-size: 12px;">Código único de 3 letras (usualmente código IATA de la estación)</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Nombre de la Caja</label>
+                    <input type="text" class="form-control" id="nombreCaja" placeholder="Ej: Caja Santiago, Caja Lima" required>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="required">Estación</label>
+                        <select class="form-control" id="estacionCaja" required>
+                            <option value="">Seleccione estación</option>
+                            <option value="SCL">SCL - Santiago</option>
+                            <option value="LIM">LIM - Lima</option>
+                            <option value="EZE">EZE - Buenos Aires</option>
+                            <option value="MDE">MDE - Medellín</option>
+                            <option value="BOG">BOG - Bogotá</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">País</label>
+                        <select class="form-control" id="paisCaja" required>
+                            <option value="">Seleccione país</option>
+                            <option value="CL">Chile</option>
+                            <option value="PE">Perú</option>
+                            <option value="AR">Argentina</option>
+                            <option value="CO">Colombia</option>
+                            <option value="BR">Brasil</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Límite Establecido (USD)</label>
+                    <input type="number" class="form-control" id="limiteCaja" step="0.01" min="0" placeholder="0.00" required>
+                    <small style="color: #6b7280; font-size: 12px;">Límite máximo para alertas preventivas (ej: $80,000 para SCL, $40,000 para LIM)</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Saldo Inicial (USD)</label>
+                    <input type="number" class="form-control" id="saldoInicialCaja" step="0.01" min="0" placeholder="0.00" required>
+                    <small style="color: #6b7280; font-size: 12px;">Saldo inicial con el que se crea la caja. Puede ser $0.00 si se cargará después.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Regla de Asociación</label>
+                    <select class="form-control" id="reglaAsociacionCaja" required>
+                        <option value="">Seleccione regla</option>
+                        <option value="base-scl">Por Base: SCL → Caja SCL</option>
+                        <option value="base-lim">Por Base: LIM → Caja LIM</option>
+                        <option value="destino-scl">Por Destino: SCL → Caja SCL</option>
+                        <option value="destino-lim">Por Destino: LIM → Caja LIM</option>
+                        <option value="personalizada">Personalizada (configurar después)</option>
+                    </select>
+                    <small style="color: #6b7280; font-size: 12px;">Define cómo se asigna automáticamente esta caja al calcular viáticos</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Email para Notificaciones</label>
+                    <input type="email" class="form-control" id="emailCaja" placeholder="caja-scl@jetsmart.com">
+                    <small style="color: #6b7280; font-size: 12px;">Email donde se enviarán alertas de saldo bajo, saldo negativo, etc.</small>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="cajaActiva" checked> Caja Activa
+                    </label>
+                    <small style="color: #6b7280; font-size: 12px; display: block; margin-top: 5px;">
+                        Solo las cajas activas aparecerán en los desplegables para pago y débito automático
+                    </small>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>Operaciones Permitidas en esta Caja:</strong>
+                    <ul style="margin: 8px 0 0 20px; font-size: 14px;">
+                        <li>Carga inicial de saldo</li>
+                        <li>Abono de saldo</li>
+                        <li>Débito automático (viáticos calculados)</li>
+                        <li>Débito manual (casos especiales)</li>
+                        <li>Ajustes (solo administrador)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalNuevaCaja')">Cancelar</button>
+                <button class="btn-primary" onclick="guardarNuevaCaja()">Crear Caja</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Notificación de Débito Automático -->
+    <div id="modalNotificacionDebito" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Notificación de Débito Automático</h3>
+                <button class="modal-close" onclick="closeModal('modalNotificacionDebito')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success">
+                    <strong>✓ Débito Automático Ejecutado</strong>
+                </div>
+
+                <div style="background-color: #f3f4f6; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                    <h4 style="margin-bottom: 15px; font-size: 16px; color: #111827;">Detalles del Débito</h4>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="padding: 8px; font-weight: 500;">Caja:</td>
+                            <td style="padding: 8px;"><strong>LIM - Caja Lima</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 500;">Viático:</td>
+                            <td style="padding: 8px;">María González (ID: 67890) - Vuelo JA456</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 500;">Monto Debitado:</td>
+                            <td style="padding: 8px; color: #ef4444; font-weight: 700;">-$69.00 USD</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 500;">Saldo Anterior:</td>
+                            <td style="padding: 8px;">$38,569.00 USD</td>
+                        </tr>
+                        <tr style="background-color: white;">
+                            <td style="padding: 8px; font-weight: 700;">Saldo Resultante:</td>
+                            <td style="padding: 8px; font-weight: 700; font-size: 18px;">$38,500.00 USD</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 500;">Fecha/Hora:</td>
+                            <td style="padding: 8px;">15/01/2025 11:15</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 500;">Asignación:</td>
+                            <td style="padding: 8px;">Automática por destino del vuelo (LIM)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Notificaciones Enviadas:</strong>
+                    <ul style="margin: 8px 0 0 20px; font-size: 14px;">
+                        <li>Email enviado a: caja-lim@jetsmart.com</li>
+                        <li>Notificación en sistema para usuarios con acceso a Caja LIM</li>
+                        <li>Registro en historial de movimientos de caja</li>
+                    </ul>
+                </div>
+
+                <div style="background-color: #fef3c7; padding: 12px; border-radius: 6px; border-left: 4px solid #f59e0b;">
+                    <strong style="color: #92400e;">Estado del Saldo:</strong>
+                    <p style="margin: 8px 0 0 0; color: #92400e; font-size: 14px;">
+                        El saldo actual ($38,500.00) está al 96.25% del límite establecido ($40,000.00). 
+                        Se ha generado una alerta preventiva.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalNotificacionDebito')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+            <!-- Botón para mostrar ejemplo de saldo negativo -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Ejemplo: Caja con Saldo Negativo</h2>
+                    <button class="btn-secondary" onclick="toggleEjemploSaldoNegativo()">Mostrar/Ocultar Ejemplo</button>
+                </div>
+                <div class="alert alert-info">
+                    <strong>Información:</strong> Haga clic en el botón para ver un ejemplo de cómo el sistema maneja y visualiza una caja con saldo negativo.
+                </div>
+            </div>
+
+            <!-- Ejemplo de Caja con Saldo Negativo -->
+            <div class="card" style="margin-top: 30px; display: none;" id="ejemploSaldoNegativo">
+        <div class="card-header">
+            <h2 class="card-title">Ejemplo: Caja con Saldo Negativo</h2>
+        </div>
+        <div class="grid-2">
+            <div class="card" style="margin: 0; border-left: 4px solid #ef4444;">
+                <div class="flex-between mb-20">
+                    <h3 style="font-size: 18px; color: #111827;">Caja LIM - Lima</h3>
+                    <span class="badge badge-danger">Saldo Negativo</span>
+                </div>
+                <div style="background-color: #fee2e2; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                    <div style="margin-bottom: 10px;">
+                        <span style="color: #6b7280; font-size: 14px;">Saldo Inicial:</span>
+                        <strong style="float: right; font-size: 14px;">$40,000.00 USD</strong>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <span style="color: #6b7280; font-size: 14px;">Total Abonos:</span>
+                        <strong style="float: right; font-size: 14px; color: #10b981;">+$0.00 USD</strong>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <span style="color: #6b7280; font-size: 14px;">Total Débitos:</span>
+                        <strong style="float: right; font-size: 14px; color: #ef4444;">-$42,500.00 USD</strong>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #ef4444;">
+                        <div style="margin-bottom: 10px;">
+                            <span style="color: #111827; font-size: 14px; font-weight: 600;">Saldo Resultante:</span>
+                            <strong style="float: right; font-size: 20px; color: #ef4444;">-$2,500.00 USD</strong>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #d1d5db;">
+                        <div style="background-color: #fee2e2; padding: 12px; border-radius: 4px; border: 2px solid #ef4444;">
+                            <span style="color: #991b1b; font-size: 14px; font-weight: 700;">⚠️ ALERTA: Saldo Negativo</span>
+                            <p style="margin: 8px 0 0 0; color: #991b1b; font-size: 12px;">
+                                La caja tiene un saldo negativo de $2,500.00 USD. 
+                                Se requiere regularización mediante abono.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-10">
+                    <button class="btn-primary" style="flex: 1;">Regularizar con Abono</button>
+                    <button class="btn-secondary" style="flex: 1;">Ver Movimientos</button>
+                </div>
+            </div>
+            <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px;">
+                <h3 style="margin-bottom: 15px; font-size: 16px; color: #111827;">Sobre el Saldo Negativo</h3>
+                <div style="color: #374151; font-size: 14px; line-height: 1.8;">
+                    <p style="margin-bottom: 15px;">
+                        <strong>✓ Está permitido:</strong> El sistema permite que una caja quede con saldo negativo. 
+                        Esto puede ocurrir cuando los débitos automáticos superan el saldo disponible.
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        <strong>⚠️ Alertas automáticas:</strong> Cuando una caja queda con saldo negativo, el sistema:
+                    </p>
+                    <ul style="margin: 0 0 15px 20px;">
+                        <li>Marca el saldo en <strong style="color: #ef4444;">rojo</strong></li>
+                        <li>Genera una <strong>alerta automática</strong> visible en el dashboard</li>
+                        <li>Envía notificación por email a los responsables</li>
+                        <li>Permite regularización posterior mediante abono</li>
+                    </ul>
+                    <p>
+                        <strong>🔄 Regularización:</strong> Para regularizar un saldo negativo, simplemente registre un abono 
+                        que cubra el monto negativo más el saldo necesario para operaciones futuras.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        function guardarNuevaCaja() {
+            alert('Simulación: Nueva caja creada exitosamente.\n\nLa caja ha sido registrada y estará disponible para asignación automática y débitos.');
+            closeModal('modalNuevaCaja');
+        }
+
+        function toggleEjemploSaldoNegativo() {
+            const ejemplo = document.getElementById('ejemploSaldoNegativo');
+            if (ejemplo.style.display === 'none') {
+                ejemplo.style.display = 'block';
+            } else {
+                ejemplo.style.display = 'none';
+            }
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+            }
+        }
+    </script>
+</body>
+</html>

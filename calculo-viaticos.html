@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Viáticos - Mockup</title>
+    <link rel="stylesheet" href="styles/common.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Plataforma de Automatización de Viáticos</h1>
+            <div class="user-info">
+                <span>Usuario: Mayra Rifo</span>
+                <span class="role-badge">Admin Total</span>
+                <button class="btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="registro-vuelos.html">Registro de Vuelos</a></li>
+                <li><a href="calculo-viaticos.html" class="active">Cálculo de Viáticos</a></li>
+                <li><a href="viaticos-proyectados.html">Viáticos Proyectados</a></li>
+                <li><a href="reportes.html">Generación de Reportes</a></li>
+                <li><a href="control-caja.html">Control de Caja</a></li>
+                <li><a href="ingreso-manual.html">Ingreso Manual</a></li>
+                <li><a href="administracion.html">Administración</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Cálculo Automático de Viáticos</h2>
+                    <div class="flex gap-10">
+                        <button class="btn-primary" onclick="openModal('modalConfigCalculo')">Configurar Cálculo Automático</button>
+                        <button class="btn-primary" onclick="calcularTodos()">Calcular Todos los Pendientes</button>
+                        <button class="btn-secondary">Recalcular Seleccionados</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Proceso Automatizado:</strong> El sistema calcula automáticamente los viáticos según las reglas configuradas por país, horarios y políticas especiales. Al aprobar los cálculos, se debita automáticamente de la caja asociada.
+                    <br><small style="color: #6b7280; font-size: 12px; margin-top: 5px; display: block;">El sistema diferencia automáticamente entre <strong>viáticos programados</strong> (operación normal del día siguiente) y <strong>viáticos por contingencia</strong> (cambios no previstos, tripulaciones varadas, reemplazos, apoyos especiales).</small>
+                </div>
+
+                <div class="alert alert-success" style="margin-top: 15px;">
+                    <strong>Configuración Actual:</strong> Cálculo <strong>Diario</strong> - Próximo cálculo automático: 16/01/2025 08:00
+                </div>
+
+                <div style="background-color: #eff6ff; padding: 15px; border-radius: 6px; margin-top: 15px; border-left: 4px solid #1e3a8a;">
+                    <strong style="color: #1e3a8a;">Asociación Automática de Caja:</strong>
+                    <p style="margin: 8px 0 0 0; color: #1e40af; font-size: 14px;">
+                        La caja se asigna automáticamente según la <strong>base del tripulante</strong> o el <strong>destino del vuelo</strong>, 
+                        según la configuración de reglas. El débito se realiza automáticamente al aprobar los cálculos.
+                    </p>
+                </div>
+
+                <div class="flex-between mb-20">
+                    <div class="flex gap-10">
+                        <input type="date" class="form-control" style="width: auto;" placeholder="Fecha desde">
+                        <input type="date" class="form-control" style="width: auto;" placeholder="Fecha hasta">
+                        <select class="form-control" style="width: auto;">
+                            <option value="">Todos los países</option>
+                            <option value="CL">Chile</option>
+                            <option value="PE">Perú</option>
+                            <option value="AR">Argentina</option>
+                            <option value="BR">Brasil</option>
+                        </select>
+                        <select class="form-control" style="width: auto;">
+                            <option value="">Todas las cajas</option>
+                            <option value="SCL">SCL</option>
+                            <option value="LIM">LIM</option>
+                        </select>
+                        <select class="form-control" style="width: auto;">
+                            <option value="">Todas las clasificaciones</option>
+                            <option value="programado">Programado</option>
+                            <option value="contingencia">Contingencia</option>
+                            <option value="apoyo">Apoyo</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <button class="btn-secondary">Filtrar</button>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" style="width: 250px; display: inline-block;" placeholder="Buscar por ID, nombre o vuelo...">
+                        <button class="btn-secondary">Buscar</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>ID Tripulante</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Vuelo</th>
+                            <th>Fecha</th>
+                            <th>Base</th>
+                            <th>Destino</th>
+                            <th>Hora Llegada</th>
+                            <th>Noches</th>
+                            <th>Valor Diario</th>
+                            <th>% Aplicado</th>
+                            <th>Monto Calculado</th>
+                            <th>Moneda</th>
+                            <th>Caja</th>
+                            <th>Clasificación</th>
+                            <th>Regla Aplicada</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>12345</td>
+                            <td>Juan Pérez</td>
+                            <td>CPT</td>
+                            <td>JA123</td>
+                            <td>15/01/2025</td>
+                            <td>SCL</td>
+                            <td>LIM</td>
+                            <td>19:30</td>
+                            <td>1.0</td>
+                            <td>$46.00</td>
+                            <td>50%</td>
+                            <td><strong>$23.00</strong></td>
+                            <td>USD</td>
+                            <td>LIM</td>
+                            <td><span class="badge badge-info">Programado</span></td>
+                            <td>Regla General: Llegada > 18:00</td>
+                            <td><span class="badge badge-success">Calculado</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;" onclick="openModal('modalDetalleCalculo', '12345')">Ver Detalle</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>67890</td>
+                            <td>María González</td>
+                            <td>FO</td>
+                            <td>JA456</td>
+                            <td>15/01/2025</td>
+                            <td>LIM</td>
+                            <td>SCL</td>
+                            <td>14:00</td>
+                            <td>1.5</td>
+                            <td>$46.00</td>
+                            <td>100%</td>
+                            <td><strong>$69.00</strong></td>
+                            <td>USD</td>
+                            <td>SCL</td>
+                            <td><span class="badge badge-warning">Contingencia</span></td>
+                            <td>Argentina: 50% ida + 100% estadía</td>
+                            <td><span class="badge badge-success">Calculado</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;" onclick="openModal('modalDetalleCalculo', '12345')">Ver Detalle</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>11111</td>
+                            <td>Carlos Rodríguez</td>
+                            <td>CC</td>
+                            <td>JA789</td>
+                            <td>16/01/2025</td>
+                            <td>EZE</td>
+                            <td>REC</td>
+                            <td>16:00</td>
+                            <td>-</td>
+                            <td>$46.00</td>
+                            <td>-</td>
+                            <td><strong>Pendiente</strong></td>
+                            <td>USD</td>
+                            <td>-</td>
+                            <td><span class="badge badge-warning">Contingencia</span></td>
+                            <td>Ruta Especial: Pago post-rol</td>
+                            <td><span class="badge badge-warning">Pendiente</span></td>
+                            <td>
+                                <button class="btn-primary" style="padding: 4px 8px; font-size: 12px;">Calcular</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="flex-between mt-20">
+                    <div>
+                        <strong>Total Seleccionado:</strong> $92.00 USD
+                    </div>
+                    <div class="flex gap-10">
+                        <button class="btn-primary" onclick="openModal('modalAprobarDebito')">Aprobar y Generar Débito</button>
+                        <button class="btn-secondary">Exportar Seleccionados</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modal Configuración de Cálculo Automático -->
+    <div id="modalConfigCalculo" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Configurar Cálculo Automático de Viáticos</h3>
+                <button class="modal-close" onclick="closeModal('modalConfigCalculo')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="required">Frecuencia de Cálculo</label>
+                    <select class="form-control" id="frecuenciaCalculo" required>
+                        <option value="diario" selected>Diario</option>
+                        <option value="semanal">Semanal</option>
+                        <option value="manual">Manual (Solo cuando se solicite)</option>
+                    </select>
+                    <small style="color: #6b7280; font-size: 12px;">El sistema calculará automáticamente los viáticos según esta frecuencia</small>
+                </div>
+
+                <div class="form-group" id="horaCalculoGroup">
+                    <label class="required">Hora de Ejecución</label>
+                    <input type="time" class="form-control" id="horaCalculo" value="08:00" required>
+                    <small style="color: #6b7280; font-size: 12px;">Hora en que se ejecutará el cálculo automático</small>
+                </div>
+
+                <div class="form-group" id="diaSemanaGroup" style="display: none;">
+                    <label class="required">Día de la Semana</label>
+                    <select class="form-control" id="diaSemana">
+                        <option value="lunes">Lunes</option>
+                        <option value="martes">Martes</option>
+                        <option value="miercoles">Miércoles</option>
+                        <option value="jueves">Jueves</option>
+                        <option value="viernes">Viernes</option>
+                        <option value="sabado">Sábado</option>
+                        <option value="domingo">Domingo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="debitarAutomatico" checked> Débitar automáticamente de caja al calcular
+                    </label>
+                    <small style="color: #6b7280; font-size: 12px; display: block; margin-top: 5px;">
+                        Si está activado, los viáticos calculados se debitarán automáticamente de la caja asociada sin requerir aprobación manual
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="notificarCalculo"> Enviar notificación por email al completar cálculo
+                    </label>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Asociación Automática de Caja:</strong>
+                    <ul style="margin: 8px 0 0 20px; font-size: 14px;">
+                        <li>La caja se asigna según la <strong>base del tripulante</strong> configurada en las reglas</li>
+                        <li>Si no hay regla específica, se usa la caja del <strong>destino del vuelo</strong></li>
+                        <li>Puede configurar estas reglas en el módulo de Administración</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalConfigCalculo')">Cancelar</button>
+                <button class="btn-primary" onclick="guardarConfigCalculo()">Guardar Configuración</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalle de Cálculo -->
+    <div id="modalDetalleCalculo" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalle de Cálculo de Viático</h3>
+                <button class="modal-close" onclick="closeModal('modalDetalleCalculo')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="grid-2">
+                    <div>
+                        <h3 style="margin-bottom: 15px; font-size: 16px; color: #111827;">Información del Vuelo</h3>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Tripulante:</td>
+                                <td style="padding: 8px;">Juan Pérez (ID: 12345)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Rol:</td>
+                                <td style="padding: 8px;">CPT - Capitán</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Vuelo:</td>
+                                <td style="padding: 8px;">JA123</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Fecha:</td>
+                                <td style="padding: 8px;">15/01/2025</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Base:</td>
+                                <td style="padding: 8px;">SCL - Santiago</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Destino:</td>
+                                <td style="padding: 8px;">LIM - Lima</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Hora Llegada:</td>
+                                <td style="padding: 8px;">19:30 (hora local LIM)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Hora Retorno:</td>
+                                <td style="padding: 8px;">08:00 (16/01/2025)</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 15px; font-size: 16px; color: #111827;">Cálculo del Viático</h3>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Valor Diario País (LIM):</td>
+                                <td style="padding: 8px;">$46.00 USD</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Noches de Estadía:</td>
+                                <td style="padding: 8px;">1.0 noche</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Regla Aplicada:</td>
+                                <td style="padding: 8px;">Regla General: Llegada > 18:00</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Porcentaje Aplicado:</td>
+                                <td style="padding: 8px;">50%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Cálculo:</td>
+                                <td style="padding: 8px;">$46.00 × 1.0 × 50%</td>
+                            </tr>
+                            <tr style="background-color: #f3f4f6;">
+                                <td style="padding: 8px; font-weight: 700;">Monto Final:</td>
+                                <td style="padding: 8px; font-weight: 700; font-size: 18px;">$23.00 USD</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight: 500;">Caja Asignada:</td>
+                                <td style="padding: 8px;"><strong style="color: #1e3a8a;">LIM</strong> (Asignada automáticamente por destino)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="alert alert-info mt-20">
+                    <strong>Traza de Cálculo:</strong> El sistema identificó que la hora de llegada (19:30) es posterior a las 18:00 horas local del destino (Lima), por lo tanto se aplicó el 50% del viático diario según la regla general configurada.
+                </div>
+
+                <div class="alert alert-success mt-20">
+                    <strong>Asociación de Caja:</strong> La caja LIM fue asignada automáticamente porque el destino del vuelo es Lima (LIM). Esta asignación se realiza según las reglas configuradas en el sistema.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalDetalleCalculo')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Aprobar y Generar Débito -->
+    <div id="modalAprobarDebito" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Aprobar Cálculos y Generar Débitos Automáticos</h3>
+                <button class="modal-close" onclick="closeModal('modalAprobarDebito')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    <strong>Confirmación Requerida:</strong> Al aprobar, se generarán los débitos automáticos en las cajas correspondientes.
+                </div>
+
+                <div style="background-color: #f3f4f6; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                    <h4 style="margin-bottom: 10px; font-size: 14px;">Resumen de Débitos a Generar:</h4>
+                    <table style="width: 100%;">
+                        <tr style="background-color: white;">
+                            <td style="padding: 8px; font-weight: 500;">Caja LIM:</td>
+                            <td style="padding: 8px; text-align: right;"><strong>$23.00 USD</strong></td>
+                            <td style="padding: 8px;">(1 viático)</td>
+                        </tr>
+                        <tr style="background-color: white;">
+                            <td style="padding: 8px; font-weight: 500;">Caja SCL:</td>
+                            <td style="padding: 8px; text-align: right;"><strong>$69.00 USD</strong></td>
+                            <td style="padding: 8px;">(1 viático)</td>
+                        </tr>
+                        <tr style="background-color: #1e3a8a; color: white;">
+                            <td style="padding: 8px; font-weight: 700;">Total:</td>
+                            <td style="padding: 8px; text-align: right; font-weight: 700; font-size: 16px;">$92.00 USD</td>
+                            <td style="padding: 8px;">(2 viáticos)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Proceso Automático:</strong>
+                    <ul style="margin: 8px 0 0 20px; font-size: 14px;">
+                        <li>Se debitará automáticamente de cada caja el monto correspondiente</li>
+                        <li>Se actualizará el saldo disponible de cada caja</li>
+                        <li>Se generará un movimiento en el historial de cada caja</li>
+                        <li>Se enviará notificación si alguna caja queda con saldo bajo</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="confirmarDebito" required> Confirmo que deseo aprobar estos cálculos y generar los débitos automáticos
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalAprobarDebito')">Cancelar</button>
+                <button class="btn-primary" onclick="aprobarYDebitar()">Aprobar y Generar Débitos</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId, param) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        function calcularTodos() {
+            if (confirm('¿Desea calcular todos los viáticos pendientes? Esto puede tomar varios minutos.')) {
+                alert('Simulación: Calculando viáticos...\n\nEl sistema procesará todos los vuelos pendientes y aplicará las reglas correspondientes.');
+            }
+        }
+
+        function guardarConfigCalculo() {
+            const frecuencia = document.getElementById('frecuenciaCalculo').value;
+            alert('Simulación: Configuración guardada.\n\nFrecuencia: ' + frecuencia + '\nEl sistema ejecutará los cálculos automáticamente según esta configuración.');
+            closeModal('modalConfigCalculo');
+        }
+
+        function aprobarYDebitar() {
+            if (!document.getElementById('confirmarDebito').checked) {
+                alert('Debe confirmar la acción antes de continuar.');
+                return;
+            }
+            alert('Simulación: Aprobando cálculos y generando débitos automáticos...\n\nLos débitos se han registrado en las cajas correspondientes.');
+            closeModal('modalAprobarDebito');
+        }
+
+        // Mostrar/ocultar campos según frecuencia
+        document.getElementById('frecuenciaCalculo')?.addEventListener('change', function() {
+            const diaSemanaGroup = document.getElementById('diaSemanaGroup');
+            if (this.value === 'semanal') {
+                diaSemanaGroup.style.display = 'block';
+            } else {
+                diaSemanaGroup.style.display = 'none';
+            }
+        });
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+            }
+        }
+    </script>
+</body>
+</html>

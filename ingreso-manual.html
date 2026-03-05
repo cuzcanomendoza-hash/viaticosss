@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso Manual de Viáticos - Mockup</title>
+    <link rel="stylesheet" href="styles/common.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Plataforma de Automatización de Viáticos</h1>
+            <div class="user-info">
+                <span>Usuario: Mayra Rifo</span>
+                <span class="role-badge">Admin Total</span>
+                <button class="btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="registro-vuelos.html">Registro de Vuelos</a></li>
+                <li><a href="calculo-viaticos.html">Cálculo de Viáticos</a></li>
+                <li><a href="viaticos-proyectados.html">Viáticos Proyectados</a></li>
+                <li><a href="reportes.html">Generación de Reportes</a></li>
+                <li><a href="control-caja.html">Control de Caja</a></li>
+                <li><a href="ingreso-manual.html" class="active">Ingreso Manual</a></li>
+                <li><a href="administracion.html">Administración</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Ingreso Manual de Viáticos Especiales</h2>
+                    <button class="btn-primary">Carga Masiva (CSV)</button>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Casos Especiales:</strong> Use este módulo para registrar viáticos que no se extraen automáticamente del reporte AIMS, como apoyos a otras bases por más de un mes o comisiones de servicio (CRSV).
+                </div>
+
+                <div class="card" style="margin: 0; margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 20px; font-size: 16px; color: #111827;">Tipo de Ingreso</h3>
+                    <div class="flex gap-10">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="radio" name="tipoIngreso" value="individual" checked>
+                            <span>Ingreso Individual</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="radio" name="tipoIngreso" value="masivo">
+                            <span>Carga Masiva</span>
+                        </label>
+                    </div>
+                </div>
+
+                <form id="formIngresoManual">
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">ID Tripulante</label>
+                            <input type="text" class="form-control" id="idTripulanteManual" placeholder="Ej: 12345" required>
+                            <small style="color: #6b7280; font-size: 12px;">El sistema buscará automáticamente el nombre desde la API</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Nombre Tripulante</label>
+                            <input type="text" class="form-control" id="nombreTripulanteManual" placeholder="Se completa automáticamente" disabled>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Clasificación del Movimiento</label>
+                            <select class="form-control" id="clasificacionMovimiento" required>
+                                <option value="">Seleccione clasificación</option>
+                                <option value="programado">Programado</option>
+                                <option value="contingencia">Contingencia</option>
+                                <option value="apoyo">Apoyo</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <small style="color: #6b7280; font-size: 12px;">Clasifique el tipo de movimiento según la reunión: Programado (operación normal), Contingencia (cambios no previstos), Apoyo u Otro</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Tipo de Caso Especial</label>
+                            <select class="form-control" id="tipoCaso" required>
+                                <option value="">Seleccione tipo</option>
+                                <option value="apoyo-base">Apoyo a Otra Base (1 mes o más)</option>
+                                <option value="crsv">Comisión de Servicio (CRSV)</option>
+                                <option value="delivery">Delivery de Avión</option>
+                                <option value="busqueda">Búsqueda de Aeronave</option>
+                                <option value="otro">Otro Caso Especial</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Base del Tripulante</label>
+                            <select class="form-control" id="baseManual" required>
+                                <option value="">Seleccione una base</option>
+                                <option value="SCL">SCL - Santiago</option>
+                                <option value="LIM">LIM - Lima</option>
+                                <option value="EZE">EZE - Buenos Aires</option>
+                                <option value="MDE">MDE - Medellín</option>
+                                <option value="BOG">BOG - Bogotá</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Destino / Base de Apoyo</label>
+                            <select class="form-control" id="destinoManual" required>
+                                <option value="">Seleccione destino</option>
+                                <option value="SCL">SCL - Santiago</option>
+                                <option value="LIM">LIM - Lima</option>
+                                <option value="EZE">EZE - Buenos Aires</option>
+                                <option value="GIG">GIG - Río de Janeiro</option>
+                                <option value="GRU">GRU - São Paulo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Caja de Pago</label>
+                            <select class="form-control" id="cajaManual" required>
+                                <option value="">Seleccione caja</option>
+                                <option value="SCL">SCL - Santiago</option>
+                                <option value="LIM">LIM - Lima</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Fecha Inicio</label>
+                            <input type="date" class="form-control" id="fechaInicioManual" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Fecha Fin</label>
+                            <input type="date" class="form-control" id="fechaFinManual" required>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="required">Monto Estimado</label>
+                            <input type="number" class="form-control" id="montoManual" step="0.01" min="0" placeholder="0.00" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Moneda</label>
+                            <select class="form-control" id="monedaManual" required>
+                                <option value="USD">USD - Dólares</option>
+                                <option value="CLP">CLP - Pesos Chilenos</option>
+                                <option value="PEN">PEN - Soles Peruanos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Motivo Detallado</label>
+                        <textarea class="form-control" id="motivoManual" rows="4" placeholder="Describa detalladamente el motivo del viático especial..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Documento de Respaldo</label>
+                        <input type="file" class="form-control" id="documentoManual" accept=".pdf,.jpg,.png" required>
+                        <small style="color: #6b7280; font-size: 12px;">Formatos permitidos: PDF, JPG, PNG (Obligatorio)</small>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <strong>Origen del Dato:</strong> Este movimiento será identificado como <strong>MANUAL</strong> para efectos de trazabilidad y auditoría. Todos los movimientos manuales quedan marcados con esta identificación.
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>Validación Automática:</strong> El sistema validará automáticamente que no existan duplicados basándose en ID Tripulante, Fecha y Tipo de Caso.
+                    </div>
+
+                    <div class="flex gap-10" style="margin-top: 20px;">
+                        <button type="submit" class="btn-primary">Registrar Viático Manual</button>
+                        <button type="button" class="btn-secondary">Limpiar Formulario</button>
+                        <button type="button" class="btn-secondary">Validar Duplicados</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Carga Masiva -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Carga Masiva de Viáticos Manuales</h2>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Formato CSV Requerido:</strong> El archivo debe contener las siguientes columnas: ID_Tripulante, Clasificacion, Tipo_Caso, Base, Destino, Fecha_Inicio, Fecha_Fin, Monto, Moneda, Caja, Motivo
+                    <br><small style="color: #6b7280; font-size: 12px; margin-top: 5px; display: block;">Nota: Clasificacion debe ser: programado, contingencia, apoyo u otro. Todos los registros de carga masiva se marcarán como MANUAL.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Archivo CSV</label>
+                    <input type="file" class="form-control" id="archivoCSV" accept=".csv" required>
+                    <small style="color: #6b7280; font-size: 12px;">Tamaño máximo: 10MB</small>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="validarDuplicados"> Validar duplicados antes de importar
+                    </label>
+                </div>
+
+                <div class="flex gap-10" style="margin-top: 20px;">
+                    <button class="btn-primary">Cargar y Validar</button>
+                    <button class="btn-secondary">Descargar Plantilla CSV</button>
+                </div>
+            </div>
+
+            <!-- Registros Manuales -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">Viáticos Manuales Registrados</h2>
+                    <div class="flex gap-10">
+                        <input type="date" class="form-control" style="width: auto;">
+                        <select class="form-control" style="width: auto;">
+                            <option value="">Todos los tipos</option>
+                            <option value="apoyo-base">Apoyo a Base</option>
+                            <option value="crsv">CRSV</option>
+                        </select>
+                        <button class="btn-secondary">Filtrar</button>
+                        <button class="btn-secondary">Exportar</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha Registro</th>
+                            <th>ID Tripulante</th>
+                            <th>Nombre</th>
+                            <th>Clasificación</th>
+                            <th>Tipo</th>
+                            <th>Base</th>
+                            <th>Destino</th>
+                            <th>Período</th>
+                            <th>Monto</th>
+                            <th>Caja</th>
+                            <th>Origen</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10/01/2025</td>
+                            <td>99999</td>
+                            <td>Pedro Martínez</td>
+                            <td><span class="badge badge-info">Apoyo</span></td>
+                            <td>Apoyo a Base</td>
+                            <td>SCL</td>
+                            <td>LIM</td>
+                            <td>01/01 - 31/01</td>
+                            <td>$1,380.00</td>
+                            <td>LIM</td>
+                            <td><span class="badge badge-warning">MANUAL</span></td>
+                            <td><span class="badge badge-success">Aprobado</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Ver</button>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>08/01/2025</td>
+                            <td>88888</td>
+                            <td>Ana Silva</td>
+                            <td><span class="badge badge-warning">Contingencia</span></td>
+                            <td>CRSV - Delivery</td>
+                            <td>SCL</td>
+                            <td>MEX</td>
+                            <td>05/01 - 07/01</td>
+                            <td>$198.00</td>
+                            <td>SCL</td>
+                            <td><span class="badge badge-warning">MANUAL</span></td>
+                            <td><span class="badge badge-success">Aprobado</span></td>
+                            <td>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Ver</button>
+                                <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
